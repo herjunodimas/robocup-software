@@ -73,6 +73,7 @@ class TestStrafe(play.Play):
 
     ##initial move to get to first strafing position
     def on_enter_turning(self):
+        print("on enter turning")
         # Note these are offsets
         targetx = 1
         targety = 1
@@ -91,6 +92,8 @@ class TestStrafe(play.Play):
 
     #moving
     def on_enter_moving(self):
+        print("on enter moving")
+        print(self.subbehavior_with_name('move').state == behavior.Behavior.State.completed)
         # Note these are offsets
         targetx = 2
         targety = 2
@@ -100,10 +103,13 @@ class TestStrafe(play.Play):
         move.pos = robocup.Point(targetx, targety)
 
     def execute_moving(self):
+        print("EXECUTE MOVING")
+        print(self.subbehavior_with_name('move').state == behavior.Behavior.State.completed)
         move = self.subbehavior_with_name('move')
         if (move.robot != None):
             move.robot.face(self.calculate_facing())
 
     def on_exit_moving(self):
+        print("on exit moving")
+        print(self.subbehavior_with_name('move').state == behavior.Behavior.State.completed)
         self.remove_subbehavior('move')
-
